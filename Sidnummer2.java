@@ -1,19 +1,36 @@
-//test
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 
 /*
  * Sidnumrering uppgift nummer 9 i classroom
  */
+
 public class Sidnummer2 {
 
 	static String input;
 
 	public static String readInput() throws IOException {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-		System.out.print("Vad skall användaren skriva in: ");
-		String s = reader.readLine();
+		ArrayList<Integer> arrayList = new ArrayList<Integer>();
+		System.out.println("Inmatningen skall ske i stigande ordning\nutan dubbletter och avslutas med en nolla.\n");
+
+		while (true) {
+			System.out.print("Skriv in sidnummer: ");
+			String input = reader.readLine();
+			int num = Integer.parseInt(input);
+
+			if (arrayList.contains(num) || arrayList.stream().anyMatch(n -> n > num && num != 0)) { // Kontrollerar
+																									// syntax
+				System.out.println("Felaktig inmatning, programmet avslutas...");
+				System.exit(0);
+			} else if (num == 0) {
+				break;
+			}
+			arrayList.add(num);
+		}
+		String s = arrayList.toString().replaceAll("[\\[\\]]", "").replaceAll(",", "");
 		return s;
 	}
 
